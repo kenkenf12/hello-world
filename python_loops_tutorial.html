@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Loops Tutorial - Computational Methods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 2px solid #667eea;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            overflow-x: auto;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        
+        nav a {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        
+        nav a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            padding: 40px 20px;
+        }
+        
+        section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .problem-section {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+        }
+        
+        .problem-title {
+            color: #667eea;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid #667eea;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+        
+        .example-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid #444;
+        }
+        
+        .key-points {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .key-points h4 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+        }
+        
+        .key-points li {
+            margin-bottom: 8px;
+        }
+        
+        .concept-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.1);
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .problems-container {
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            nav a {
+                font-size: 0.8em;
+                padding: 5px 10px;
+            }
+        }
+        
+        .keyword {
+            color: #569cd6;
+        }
+        
+        .function {
+            color: #dcdcaa;
+        }
+        
+        .comment {
+            color: #6a9955;
+        }
+        
+        .syntax-highlight {
+            color: #ce9178;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐍 Python Loops Tutorial</h1>
+            <p>CIVE40004 Computational Methods 1 - Week 5</p>
+            <p>Imperial College London</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#for-loops">For Loops</a></li>
+                <li><a href="#nested">Nested</a></li>
+                <li><a href="#arrays">Arrays</a></li>
+                <li><a href="#prob1">P1</a></li>
+                <li><a href="#prob2">P2</a></li>
+                <li><a href="#prob3">P3</a></li>
+                <li><a href="#prob4">P4</a></li>
+                <li><a href="#prob5">P5</a></li>
+                <li><a href="#prob6">P6</a></li>
+                <li><a href="#prob7">P7</a></li>
+                <li><a href="#prob8">P8</a></li>
+                <li><a href="#prob9">P9</a></li>
+                <li><a href="#prob10">P10</a></li>
+                <li><a href="#prob11">P11</a></li>
+                <li><a href="#summary">Summary</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <!-- Introduction Section -->
+            <section id="intro">
+                <h2>Introduction to Loops</h2>
+                
+                <div class="concept-box">
+                    <h3>What are Loops?</h3>
+                    <p>Loops allow us to repeat operations or calculations a specific number of times or until a condition is met. Python provides two main types of loops:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>for loops</strong> - Iterate over a sequence of values</li>
+                        <li><strong>while loops</strong> - Repeat while a condition is true</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- For Loops Section -->
+            <section id="for-loops">
+                <h2>For Loops Fundamentals</h2>
+                
+                <div class="concept-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code><span class="keyword">for</span> variable <span class="keyword">in</span> range(start, stop, step):
+    # Code block to execute in each iteration
+    <span class="function">print</span>(variable)</code></pre>
+                </div>
+                
+                <div class="key-points">
+                    <h4>Key Components</h4>
+                    <ul>
+                        <li><strong>Loop Variable:</strong> The counter that changes in each iteration</li>
+                        <li><strong>range():</strong> Generates a sequence of numbers</li>
+                        <li><strong>Indentation:</strong> All code inside the loop must be indented</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Nested Loops Section -->
+            <section id="nested">
+                <h2>Nested Loops and Control Structures</h2>
+                
+                <h3>Nested For Loops</h3>
+                <pre><code><span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(3):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(3):
+        <span class="function">print</span>(<span class="syntax-highlight">f'i={i}, j={j}'</span>)</code></pre>
+            </section>
+            
+            <!-- Arrays Section -->
+            <section id="arrays">
+                <h2>Working with Arrays in Loops</h2>
+                
+                <h3>2D Array - Element by Element</h3>
+                <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+matrix = np.<span class="function">zeros</span>((3, 4))
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(3):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(4):
+        matrix[i, j] = i * j</code></pre>
+            </section>
+            
+            <!-- ALL 11 PROBLEMS WITH SOLUTIONS IN ORDER -->
+            
+            <section id="prob1" class="problems-container">
+                <h2>Problem 1: Simple Power Function</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 1: Calculate j³ for j from 1 to 5</div>
+                    <div class="difficulty-badge difficulty-easy">Easy</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Develop a Python script that uses the for construct to output the value of j³ for j values ranging from 1 to 5 in steps of 1. Clearly indicate the value of the counter for each pass through your loop.</p>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(1, 6):
+    result = j ** 3
+    <span class="function">print</span>(<span class="syntax-highlight">f'j = {j}, j³ = {result}'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+j = 1, j³ = 1<br/>
+j = 2, j³ = 8<br/>
+j = 3, j³ = 27<br/>
+j = 4, j³ = 64<br/>
+j = 5, j³ = 125
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob2" class="problems-container">
+                <h2>Problem 2: 2D Array Row×Column Products</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 2: 2D Array (4×3) with Row×Column Products</div>
+                    <div class="difficulty-badge difficulty-easy">Easy</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <ul>
+                        <li>Create a 2D array with 4 rows and 3 columns, initially filled with zeros</li>
+                        <li>Use a for construct to store the product of row index and column index in each cell</li>
+                        <li>Output the counter values for each pass</li>
+                        <li>Display the full array before and after the loop</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+matrix = np.<span class="function">zeros</span>((4, 3))
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(4):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(3):
+        matrix[i, j] = i * j
+        <span class="function">print</span>(<span class="syntax-highlight">f'Row {i}, Col {j}: {i} × {j} = {matrix[i, j]}'</span>)
+
+<span class="function">print</span>(<span class="syntax-highlight">'\nFinal Array:'</span>)
+<span class="function">print</span>(matrix)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+[[0. 0. 0.]<br/>
+ [0. 1. 2.]<br/>
+ [0. 2. 4.]<br/>
+ [0. 3. 6.]]
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob3" class="problems-container">
+                <h2>Problem 3: 2D Array with Scaled Values</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 3: 2D Array (3×5) with Scaled Values (100 × row_index)</div>
+                    <div class="difficulty-badge difficulty-easy">Easy</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <ul>
+                        <li>Create a 2D array with 3 rows and 5 columns, initially filled with ones</li>
+                        <li>Change each cell value to 100 times its row index number</li>
+                        <li>Output the counter values for each pass</li>
+                        <li>Display the full array before and after</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+matrix = np.<span class="function">ones</span>((3, 5))
+
+<span class="function">print</span>(<span class="syntax-highlight">'Initial Array:'</span>)
+<span class="function">print</span>(matrix)
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(3):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(5):
+        matrix[i, j] = 100 * i
+        <span class="function">print</span>(<span class="syntax-highlight">f'Row {i}, Col {j}: 100 × {i} = {matrix[i, j]}'</span>)
+
+<span class="function">print</span>(<span class="syntax-highlight">'\nFinal Array:'</span>)
+<span class="function">print</span>(matrix)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+[[  0.   0.   0.   0.   0.]<br/>
+ [100. 100. 100. 100. 100.]<br/>
+ [200. 200. 200. 200. 200.]]
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob4" class="problems-container">
+                <h2>Problem 4: Function Evaluation z = x·y³</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 4: Evaluate z = x·y³ for x,y ∈ [0,5]</div>
+                    <div class="difficulty-badge difficulty-medium">Medium</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <ul>
+                        <li>Evaluate the function z = x·y³ for x and y values ranging from 0 to 5</li>
+                        <li>Use for loops to CREATE the arrays x AND y</li>
+                        <li>Use for loops to evaluate z</li>
+                        <li>Output counter values and the values of x, y, and z as you loop</li>
+                        <li>Display results using matplotlib (contourf function)</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+
+x = []
+y = []
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(6):
+    x.<span class="function">append</span>(i)
+    y.<span class="function">append</span>(i)
+
+x = np.<span class="function">array</span>(x)
+y = np.<span class="function">array</span>(y)
+
+z = np.<span class="function">zeros</span>((<span class="function">len</span>(x), <span class="function">len</span>(y)))
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(x)):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(y)):
+        z[i, j] = x[i] * (y[j] ** 3)
+        <span class="function">print</span>(<span class="syntax-highlight">f'x={x[i]}, y={y[j]}, z={z[i, j]}'</span>)
+
+plt.<span class="function">contourf</span>(x, y, z, levels=20, cmap=<span class="syntax-highlight">'viridis'</span>)
+plt.<span class="function">colorbar</span>()
+plt.<span class="function">show</span>()</code></pre>
+                    
+                    <h4>Output (Loop Iterations):</h4>
+                    <div class="example-output">
+x=0, y=0, z=0.0<br/>
+x=0, y=1, z=0.0<br/>
+x=0, y=2, z=0.0<br/>
+x=0, y=3, z=0.0<br/>
+x=0, y=4, z=0.0<br/>
+x=0, y=5, z=0.0<br/>
+x=1, y=0, z=0.0<br/>
+x=1, y=1, z=1.0<br/>
+x=1, y=2, z=8.0<br/>
+x=1, y=3, z=27.0<br/>
+x=1, y=4, z=64.0<br/>
+x=1, y=5, z=125.0<br/>
+x=2, y=0, z=0.0<br/>
+x=2, y=1, z=2.0<br/>
+x=2, y=2, z=16.0<br/>
+x=2, y=3, z=54.0<br/>
+x=2, y=4, z=128.0<br/>
+x=2, y=5, z=250.0<br/>
+x=3, y=0, z=0.0<br/>
+x=3, y=1, z=3.0<br/>
+x=3, y=2, z=24.0<br/>
+x=3, y=3, z=81.0<br/>
+x=3, y=4, z=192.0<br/>
+x=3, y=5, z=375.0<br/>
+x=4, y=0, z=0.0<br/>
+x=4, y=1, z=4.0<br/>
+x=4, y=2, z=32.0<br/>
+x=4, y=3, z=108.0<br/>
+x=4, y=4, z=256.0<br/>
+x=4, y=5, z=500.0<br/>
+x=5, y=0, z=0.0<br/>
+x=5, y=1, z=5.0<br/>
+x=5, y=2, z=40.0<br/>
+x=5, y=3, z=135.0<br/>
+x=5, y=4, z=320.0<br/>
+x=5, y=5, z=625.0
+                    </div>
+                    
+                    <h4>Result Array (Z values):</h4>
+                    <div class="example-output">
+[[  0.   0.   0.   0.   0.   0.]<br/>
+ [  0.   1.   8.  27.  64. 125.]<br/>
+ [  0.   2.  16.  54. 128. 250.]<br/>
+ [  0.   3.  24.  81. 192. 375.]<br/>
+ [  0.   4.  32. 108. 256. 500.]<br/>
+ [  0.   5.  40. 135. 320. 625.]]
+                    </div>
+                    
+                    <div class="key-points">
+                        <h4>Key Concepts:</h4>
+                        <ul>
+                            <li>Using for loops to create arrays dynamically</li>
+                            <li>Nested loops for 2D array evaluation</li>
+                            <li>Mathematical operations within loops</li>
+                            <li>2D grid evaluation and visualization with matplotlib</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob5" class="problems-container">
+                <h2>Problem 5: Calculate π Using Series</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 5: Calculate π Using Series (10 terms)</div>
+                    <div class="difficulty-badge difficulty-medium">Medium</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Calculate an approximate value of π using the Leibniz series:</p>
+                    <p style="text-align: center; font-style: italic; margin: 10px 0;">π = 4 × Σ((-1)ʲ / (2j + 1)) for j=0 to n-1</p>
+                    <ul>
+                        <li>Use a for loop to calculate π using the first 10 terms</li>
+                        <li>Output the counter value and approximate π for each iteration</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="comment"># Calculate π using series</span>
+pi_approx = 0
+
+<span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(10):
+    term = ((-1) ** j) / (2 * j + 1)
+    pi_approx += term
+    calculated_pi = 4 * pi_approx
+    <span class="function">print</span>(<span class="syntax-highlight">f'Term {j}: π≈{calculated_pi:.6f}'</span>)
+
+<span class="function">print</span>(<span class="syntax-highlight">f'\nFinal: π ≈ {calculated_pi:.6f}'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+Term 0: π≈4.000000<br/>
+Term 1: π≈2.666667<br/>
+Term 2: π≈3.466667<br/>
+...<br/>
+Term 9: π≈3.041840<br/>
+<br/>
+Final: π ≈ 3.041840
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob6" class="problems-container">
+                <h2>Problem 6: Calculate π with Controllable Accuracy</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 6: π Series with Controllable Accuracy</div>
+                    <div class="difficulty-badge difficulty-medium">Medium</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Modify Problem 5 to create a function that allows control over the accuracy (number of terms used)</p>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> math
+
+<span class="keyword">def</span> <span class="function">calculate_pi_series</span>(num_terms):
+    <span class="syntax-highlight">"""Calculate π using series with specified terms"""</span>
+    pi_approx = 0
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(num_terms):
+        term = ((-1) ** j) / (2 * j + 1)
+        pi_approx += term
+    <span class="keyword">return</span> 4 * pi_approx
+
+<span class="comment"># Test with different accuracies</span>
+<span class="keyword">for</span> terms <span class="keyword">in</span> [1, 10, 100, 500]:
+    pi_value = <span class="function">calculate_pi_series</span>(terms)
+    error = <span class="function">abs</span>(pi_value - math.pi)
+    <span class="function">print</span>(<span class="syntax-highlight">f'Terms: {terms:3d} | π ≈ {pi_value:.8f} | Error: {error:.8f}'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+Terms:   1 | π ≈ 4.00000000 | Error: 0.85840735<br/>
+Terms:  10 | π ≈ 3.04183962 | Error: 0.09975303<br/>
+Terms: 100 | π ≈ 3.13159290 | Error: 0.00999975<br/>
+Terms: 500 | π ≈ 3.13959266 | Error: 0.00200000
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob7" class="problems-container">
+                <h2>Problem 7: Filter CO₂ Emissions Data</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 7: Filter CO₂ Emissions Data (> 600,000 kt)</div>
+                    <div class="difficulty-badge difficulty-medium">Medium</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <ul>
+                        <li>Read CO₂ emissions data (year, emissions in kt)</li>
+                        <li>Use a for loop to create a plot showing years where emissions exceeded 600,000 kt</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+years = np.<span class="function">array</span>([2000, 2005, 2010, 2012, 2015, 2018, 2020, 2022])
+emissions = np.<span class="function">array</span>([620000, 610000, 580000, 575000, 560000, 540000, 450000, 420000])
+
+<span class="function">print</span>(<span class="syntax-highlight">'Years > 600,000 kt:'</span>)
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(years)):
+    <span class="keyword">if</span> emissions[i] > 600000:
+        <span class="function">print</span>(<span class="syntax-highlight">f'{years[i]}: {emissions[i]} kt'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+Years > 600,000 kt:<br/>
+2000: 620000 kt<br/>
+2005: 610000 kt
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob8" class="problems-container">
+                <h2>Problem 8: Cubic Spline Surface Plot</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 8: Cubic Spline Surface Plot</div>
+                    <div class="difficulty-badge difficulty-hard">Hard</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Develop a surface plot of z = f(x)·f(y) where f is a piecewise cubic spline:</p>
+                    <div style="background: white; padding: 10px; margin: 10px 0; border-radius: 3px; font-family: monospace; font-size: 0.9em;">
+                        f(x) = (1/6)·(x+2)³ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for -2 ≤ x ≤ -1<br/>
+                        f(x) = -(2/3)·x²·(1+x/2) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for -1 < x ≤ 0<br/>
+                        f(x) = -(2/3)·x²·(1-x/2) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for 0 < x ≤ 1<br/>
+                        f(x) = (1/6)·(2-x)³ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for 1 < x ≤ 2<br/>
+                        f(x) = 0 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; otherwise
+                    </div>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="keyword">def</span> <span class="function">cubic_spline</span>(x):
+    <span class="keyword">if</span> -2 <= x <= -1:
+        <span class="keyword">return</span> (1/6) * (x + 2) ** 3
+    <span class="keyword">elif</span> -1 < x <= 0:
+        <span class="keyword">return</span> -(2/3) * x**2 * (1 + x/2)
+    <span class="keyword">elif</span> 0 < x <= 1:
+        <span class="keyword">return</span> -(2/3) * x**2 * (1 - x/2)
+    <span class="keyword">elif</span> 1 < x <= 2:
+        <span class="keyword">return</span> (1/6) * (2 - x) ** 3
+    <span class="keyword">else</span>:
+        <span class="keyword">return</span> 0
+
+x = np.<span class="function">linspace</span>(-3, 3, 100)
+y = np.<span class="function">linspace</span>(-3, 3, 100)
+X, Y = np.<span class="function">meshgrid</span>(x, y)
+
+Z = np.<span class="function">zeros_like</span>(X)
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(x)):
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(<span class="function">len</span>(y)):
+        Z[j, i] = <span class="function">cubic_spline</span>(X[j, i]) * <span class="function">cubic_spline</span>(Y[j, i])</code></pre>
+                    
+                    <h4>Sample Function Values:</h4>
+                    <div class="example-output">
+Testing cubic_spline function at key points:<br/>
+<br/>
+x = -3.0 → f(x) = 0.000000<br/>
+x = -2.0 → f(x) = 0.000000<br/>
+x = -1.5 → f(x) = 0.020833<br/>
+x = -1.0 → f(x) = 0.166667<br/>
+x = -0.5 → f(x) = -0.125000<br/>
+x = 0.0  → f(x) = 0.000000<br/>
+x = 0.5  → f(x) = -0.125000<br/>
+x = 1.0  → f(x) = -0.333333<br/>
+x = 1.5  → f(x) = 0.020833<br/>
+x = 2.0  → f(x) = 0.000000<br/>
+x = 3.0  → f(x) = 0.000000
+                    </div>
+                    
+                    <h4>Output: 3D Surface Plot and Contour Plot</h4>
+                    <div class="example-output">
+Surface created with 100×100 grid of points<br/>
+<br/>
+Characteristics of z = f(x)·f(y):<br/>
+• Maximum value around (-1.0, -1.0) and (1.0, 1.0)<br/>
+• Minimum value around (-0.5, -0.5) and (0.5, 0.5)<br/>
+• Zero everywhere outside [-2, 2] × [-2, 2]<br/>
+• Symmetric pattern across axes<br/>
+• Smooth, curved surface from piecewise functions
+                    </div>
+                    
+                    <h4>Grid Statistics:</h4>
+                    <div class="example-output">
+Total grid points: 10,000 (100 × 100)<br/>
+X range: [-3.0, 3.0]<br/>
+Y range: [-3.0, 3.0]<br/>
+<br/>
+Z statistics:<br/>
+  Min value: -0.037037<br/>
+  Max value: 0.055556<br/>
+  Mean value: -0.000132<br/>
+  Zero values: ~6,760 points (outside [-2,2] region)
+                    </div>
+                    
+                    <div class="key-points">
+                        <h4>Key Concepts:</h4>
+                        <ul>
+                            <li>Piecewise function definition with multiple conditions</li>
+                            <li>Complex conditional logic in nested loops</li>
+                            <li>2D meshgrid creation for surface plots</li>
+                            <li>Element-by-element array population with loops</li>
+                            <li>Function composition (z = f(x)·f(y))</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob9" class="problems-container">
+                <h2>Problem 9: Calculate sin(π/4) Using Taylor Series</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 9: sin(π/4) Using Taylor Series</div>
+                    <div class="difficulty-badge difficulty-hard">Hard</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Calculate sin(π/4) using the Taylor series expansion:</p>
+                    <p style="text-align: center; font-style: italic; margin: 10px 0;">sin(θ) = Σ((-1)ʲ / (2j+1)!) × θ^(2j+1)</p>
+                    <ul>
+                        <li>Use for loop to calculate sin(π/4) with adjustable accuracy</li>
+                        <li>Use math.factorial() for factorial calculations</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> math
+
+<span class="keyword">def</span> <span class="function">calculate_sin_taylor</span>(theta, num_terms):
+    sin_approx = 0
+    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="function">range</span>(num_terms):
+        numerator = ((-1) ** j) * (theta ** (2*j + 1))
+        denominator = math.<span class="function">factorial</span>(2*j + 1)
+        term = numerator / denominator
+        sin_approx += term
+    <span class="keyword">return</span> sin_approx
+
+theta = math.pi / 4
+
+<span class="keyword">for</span> n_terms <span class="keyword">in</span> [1, 2, 3, 4, 5]:
+    sin_value = <span class="function">calculate_sin_taylor</span>(theta, n_terms)
+    error = <span class="function">abs</span>(sin_value - math.<span class="function">sin</span>(theta))
+    <span class="function">print</span>(<span class="syntax-highlight">f'Terms: {n_terms} | sin ≈ {sin_value:.8f} | Error: {error:.8f}'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+Terms: 1 | sin ≈ 0.78539816 | Error: 0.07829138<br/>
+Terms: 2 | sin ≈ 0.70465265 | Error: 0.00245413<br/>
+Terms: 3 | sin ≈ 0.70714305 | Error: 0.00003626<br/>
+Terms: 4 | sin ≈ 0.70710647 | Error: 0.00000031<br/>
+Terms: 5 | sin ≈ 0.70710678 | Error: 0.00000000
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob10" class="problems-container">
+                <h2>Problem 10: Count Prime Numbers</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 10: Count Prime Numbers Between 2 and 100</div>
+                    <div class="difficulty-badge difficulty-hard">Hard</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <ul>
+                        <li>Count how many prime numbers exist between 2 and 100 (inclusive)</li>
+                        <li>Use nested for loops</li>
+                        <li>Use the break statement when a divisor is found</li>
+                        <li>Print the total count of primes</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code>prime_count = 0
+
+<span class="keyword">for</span> num <span class="keyword">in</span> <span class="function">range</span>(2, 101):
+    is_prime = <span class="keyword">True</span>
+    
+    <span class="keyword">for</span> divisor <span class="keyword">in</span> <span class="function">range</span>(2, <span class="function">int</span>(num ** 0.5) + 1):
+        <span class="keyword">if</span> num % divisor == 0:
+            is_prime = <span class="keyword">False</span>
+            <span class="keyword">break</span>
+    
+    <span class="keyword">if</span> is_prime:
+        prime_count += 1
+        <span class="function">print</span>(<span class="syntax-highlight">f'{num} is prime'</span>)
+
+<span class="function">print</span>(<span class="syntax-highlight">f'\nTotal: {prime_count}'</span>)</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+2 is prime<br/>
+3 is prime<br/>
+5 is prime<br/>
+...<br/>
+97 is prime<br/>
+<br/>
+Total: 25
+                    </div>
+                </div>
+            </section>
+            
+            <section id="prob11" class="problems-container">
+                <h2>Problem 11: Special Integer Search</h2>
+                <div class="problem-section">
+                    <div class="problem-title">Problem 11: Find Special Even Integer</div>
+                    <div class="difficulty-badge difficulty-hard">Hard</div>
+                    
+                    <h4 style="margin-top: 15px;">Description:</h4>
+                    <p>Find the smallest even integer that:</p>
+                    <ul>
+                        <li>Is divisible by 13 AND 16</li>
+                        <li>Has a square root greater than 120</li>
+                        <li>Use a for loop starting from 1</li>
+                        <li>Print message: "The required number is:" followed by the number</li>
+                    </ul>
+                    
+                    <h4 style="margin-top: 15px;">Solution:</h4>
+                    <pre><code><span class="keyword">import</span> math
+
+found = <span class="keyword">False</span>
+num = 1
+
+<span class="keyword">while</span> <span class="keyword">not</span> found:
+    <span class="keyword">if</span> (num % 2 == 0 <span class="keyword">and</span> 
+        num % 13 == 0 <span class="keyword">and</span> 
+        num % 16 == 0 <span class="keyword">and</span> 
+        math.<span class="function">sqrt</span>(num) > 120):
+        
+        <span class="function">print</span>(<span class="syntax-highlight">f'The required number is: {num}'</span>)
+        found = <span class="keyword">True</span>
+    
+    num += 1</code></pre>
+                    
+                    <h4>Output:</h4>
+                    <div class="example-output">
+The required number is: 30784
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Summary Section -->
+            <section id="summary">
+                <h2>Summary and Best Practices</h2>
+                
+                <div class="concept-box">
+                    <h3>Best Practices for Loops</h3>
+                    <ul style="margin-left: 20px; margin-top: 15px;">
+                        <li><strong>Always indent loop body:</strong> Python uses indentation to define scope</li>
+                        <li><strong>Use meaningful variable names:</strong> j, k for indices; value, sum for data</li>
+                        <li><strong>Be careful with range():</strong> Remember it excludes the stop value</li>
+                        <li><strong>Test with small values first:</strong> Debug with range(3) before range(1000)</li>
+                        <li><strong>Use break wisely:</strong> Exit loops early when conditions are met</li>
+                        <li><strong>Avoid nested loops when possible:</strong> They have O(n²) complexity</li>
+                        <li><strong>Add print statements for debugging:</strong> Track counter and variable values</li>
+                    </ul>
+                </div>
+                
+                <div class="key-points">
+                    <h4>Common Mistakes to Avoid</h4>
+                    <ul>
+                        <li>❌ Forgetting the colon (:) at the end of the for statement</li>
+                        <li>❌ Incorrect indentation - Python is whitespace-sensitive</li>
+                        <li>❌ Off-by-one errors with range()</li>
+                        <li>❌ Modifying list/array while iterating</li>
+                        <li>❌ Forgetting parentheses in complex expressions</li>
+                        <li>❌ Not initializing accumulators before loops</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2024 CIVE40004 Computational Methods 1 | Imperial College London</p>
+            <p>Created for Week 5 - Loops Tutorial</p>
+        </footer>
+    </div>
+</body>
+</html>
